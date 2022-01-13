@@ -11,6 +11,7 @@ const viewsPath = path.join(__dirname, '../templates/views');
 
 const partialsPath = path.join(__dirname, '../templates/partials')
 
+const weatherData = require('../utils/weatherData');
 
 app.set('view engine', 'hbs');
 app.set('views', viewsPath)
@@ -22,7 +23,20 @@ app.get('', (req, res) => {
 })
 
 app.get('/weather', (req,res) => {
-    res.send('This is the weather endpoint')
+    const address = req.query.address
+    weatherData(address, (error, {temperature, description, cityName}) => {
+        if (error) {
+            return res.send({
+                error
+            })
+        }
+        console.log(temperature, description, cityName);
+        res.send({
+            temperature,
+            description,
+            cityName
+        })
+    });
 })
 
 app.get('*', (req, res) => {
