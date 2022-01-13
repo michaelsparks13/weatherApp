@@ -24,6 +24,12 @@ app.get('', (req, res) => {
 
 app.get('/weather', (req,res) => {
     const address = req.query.address
+    if (!address) {
+        return res.send({
+            error: "Please enter an address"
+        })
+    }
+
     weatherData(address, (error, {temperature, description, cityName}) => {
         if (error) {
             return res.send({
