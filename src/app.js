@@ -33,17 +33,17 @@ app.get('/weather', (req,res) => {
         })
     }
 
-    weatherData(address, (error, {temperature, description, cityName}) => {
+    weatherData(address, (error, {temperature, description, cityName, icon}) => {
         if (error) {
             return res.send({
                 error
             })
         }
-        console.log(temperature, description, cityName);
         res.send({
             temperature,
             description,
-            cityName
+            cityName,
+            icon
         })
     });
 })
@@ -56,6 +56,4 @@ app.get('*', (req, res) => {
 
 
 app.listen(port, () =>{
-    console.log('server is up and running on port: ', port);
-
 })

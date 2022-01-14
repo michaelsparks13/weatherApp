@@ -1,9 +1,14 @@
-let fetchWeather = "/weather";
+const BASE_ICON_URL =  "http://openweathermap.org/img/wn/"
+const ICON_SIZE = "@4x.png"
+
+
+const fetchWeather = "/weather";
 
 const weatherForm = document.querySelector('form');
 const search = document.querySelector('input');
 
-const weatherIcon = document.querySelector('.weatherIcon i');
+const weatherIcon = document.querySelector('.weatherIcon');
+
 const weatherCondition = document.querySelector('.weatherCondition');
 
 const tempElement = document.querySelector('.temperature span')
@@ -36,9 +41,13 @@ weatherForm.addEventListener('submit', (event) => {
                 tempElement.textContent = "";
                 weatherCondition.textContent = "";
             } else {
+                
+                iconPNG = BASE_ICON_URL + data.icon + ICON_SIZE;
+
                 locationElement.textContent = data.cityName;
                 tempElement.textContent = ((data.temperature - 273.15) * 9/5 + 32).toFixed(0) + String.fromCharCode(176) + "F";
                 weatherCondition.textContent = data.description.toUpperCase();
+                weatherIcon.setAttribute("style", "background-image: url(" + iconPNG + ")")
             }
 
         })
