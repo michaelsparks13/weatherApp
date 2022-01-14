@@ -4,7 +4,7 @@ const weatherForm = document.querySelector('form');
 const search = document.querySelector('input');
 
 const weatherIcon = document.querySelector('.weatherIcon i');
-const weatherCondition = document.querySelector('weatherCondition');
+const weatherCondition = document.querySelector('.weatherCondition');
 
 const tempElement = document.querySelector('.temperature span')
 
@@ -28,6 +28,7 @@ weatherForm.addEventListener('submit', (event) => {
     weatherCondition.textContent = "";
 
     const locationAPI = fetchWeather + "?address=" + search.value;
+    
     fetch(locationAPI).then(response => {
         response.json().then(data => {
             if(data.error) {
@@ -36,7 +37,7 @@ weatherForm.addEventListener('submit', (event) => {
                 weatherCondition.textContent = "";
             } else {
                 locationElement.textContent = data.cityName;
-                tempElement.textContent = data.temperature;
+                tempElement.textContent = ((data.temperature - 273.15) * 9/5 + 32).toFixed(0) + String.fromCharCode(176) + "F";
                 weatherCondition.textContent = data.description.toUpperCase();
             }
 
