@@ -1,4 +1,5 @@
 const express = require('express');
+const { render } = require('express/lib/response');
 const hbs = require('hbs');
 const path = require('path');
 const app = express();
@@ -48,7 +49,9 @@ app.get('/weather', (req,res) => {
 })
 
 app.get('*', (req, res) => {
-    res.send('Page not found')
+    render('404', {
+        title: 'Page Not Found'
+    })
 })
 
 
