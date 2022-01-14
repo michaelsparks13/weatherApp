@@ -21,10 +21,27 @@ dateElement.textContent = `${month} ${date}`
 
 
 
-
-
 weatherForm.addEventListener('submit', (event) => {
     event.preventDefault();
-    console.log(search.value);
+    locationElement.textContent = "Forecasting...";
+    tempElement.textContent = "";
+    weatherCondition.textContent = "";
+
+    const locationAPI = fetchWeather + "?address=" + search.value;
+    fetch(locationAPI).then(response => {
+        response.json().then(data => {
+            if(data.error) {
+                locationElement.textContent = data.error;
+                tempElement.textContent = "";
+                weatherCondition.textContent = "";
+            } else {
+                locationElement.textContent = data.cityName;
+                tempElement.textContent = data.temperature;
+                weatherCondition.textContent = data.description.toUpperCase();
+            }
+
+        })
+
+    });
 
 })
