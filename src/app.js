@@ -49,7 +49,7 @@ app.get('/weather', (req,res) => {
 })
 
 app.get('*', (req, res) => {
-    render('404', {
+    res.render('404', {
         title: 'Page Not Found'
     })
 })
